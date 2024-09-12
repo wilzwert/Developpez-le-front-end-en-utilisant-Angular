@@ -18,10 +18,7 @@ export class OlympicService {
     // pipe : chained observers ?, except for catchError which has a different behaviour
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       // tap is used to add side effects ; as a side effect, we populate BehaviorSubject
-      tap((value) => {console.log('valuez', value);this.olympics$.next(value);}),
-
-      // let's try something dummy
-      (value) => { return value;},
+      tap((value) => {this.olympics$.next(value);}),
 
       // catchError only listens to the error channel and ignores notifications
       catchError((error, caught) => {
