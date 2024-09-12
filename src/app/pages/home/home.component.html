@@ -1,10 +1,7 @@
 <h2>Olympic games app</h2>
 <hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-
-@for (olympic of olympics$ | async; track olympic.id) {
-    <p>{{ olympic.country }}</p>
-}
+<p>Number of JOs {{ numberOfJos }}</p>
+<p>Number of countries {{ numberOfCountries }}</p>
 
 <ngx-charts-pie-chart 
     [legend]="false"

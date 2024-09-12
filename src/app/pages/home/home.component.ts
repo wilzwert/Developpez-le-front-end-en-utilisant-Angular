@@ -12,12 +12,14 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of([]);
+  public numberOfJos: number = 0;
+  public numberOfCountries: number = 0;
 
   constructor(private olympicService: OlympicService) {}
 
   chartData:Array<Object> = [];
 
-  updateChart(olympics: Olympic[]) :void {
+  update(olympics: Olympic[]) :void {
     this.chartData = olympics.map(
       (olympic: Olympic) => {
         return {
@@ -27,6 +29,9 @@ export class HomeComponent implements OnInit {
         }
       }
     );
+
+    this.numberOfJos = olympics[0].participations.length;
+    this.numberOfCountries = this.chartData.length;
   }
 
   onChartClick(event?: any) :void {
@@ -37,7 +42,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     this.olympics$.subscribe((res) => {
-      this.updateChart(res);
+      this.update(res);
     });
   }
 }
