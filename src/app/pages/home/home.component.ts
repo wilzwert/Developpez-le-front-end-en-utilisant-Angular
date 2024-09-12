@@ -20,18 +20,23 @@ export class HomeComponent implements OnInit {
   chartData:Array<Object> = [];
 
   update(olympics: Olympic[]) :void {
-    this.chartData = olympics.map(
-      (olympic: Olympic) => {
-        return {
-          name: olympic.country, 
-          value: olympic.participations.reduce((total, participation: Participation) => {return total + participation.medalsCount}, 0), 
-          extra: {id: olympic.id}
+    if(olympics.length) {
+      this.chartData = olympics.map(
+        (olympic: Olympic) => {
+          return {
+            name: olympic.country, 
+            value: olympic.participations.reduce((total, participation: Participation) => {return total + participation.medalsCount}, 0), 
+            extra: {id: olympic.id}
+          }
         }
-      }
-    );
-
-    this.numberOfJos = olympics[0].participations.length;
-    this.numberOfCountries = this.chartData.length;
+      );
+      this.numberOfJos = olympics[0].participations.length;
+      this.numberOfCountries = this.chartData.length;
+    }
+    else {
+      this.chartData = [];
+      this.numberOfJos = this.numberOfCountries = 0;
+    }
   }
 
   onChartClick(event?: any) :void {
