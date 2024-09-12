@@ -17,7 +17,7 @@ export class OlympicService {
     // this.http.get returns an Observable on the HttpResponse
     // pipe : chained observers ?, except for catchError which has a different behaviour
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-      // as a side effect, we populate BehaviorSubject
+      // tap is used to add side effects ; as a side effect, we populate BehaviorSubject
       tap((value) => {console.log('valuez', value);this.olympics$.next(value);}),
 
       // let's try something dummy
