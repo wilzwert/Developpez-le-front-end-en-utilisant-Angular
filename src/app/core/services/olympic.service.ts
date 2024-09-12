@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic.interface';
 
@@ -13,15 +13,23 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {}
 
-  loadInitialData() {
+  /**
+   * Wait for 3s, then add an Olympic
+   * This method is used only as a test to try and understand BehaviorSubject, Observable and componants behavior
+   */
+  messWithOlympics() :void {
+    setTimeout(() => this.olympics$.value.push({id: 12, country: 'Soudan', participations:[]}), 3000);
+  }
+
+  loadInitialData() :Observable<Olympic[]> {
     // this.http.get returns an Observable on the HttpResponse
     // pipe : chained observers ?, except for catchError which has a different behaviour
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       // tap is used to add side effects ; as a side effect, we populate BehaviorSubject
-      tap((value) => {console.log('valuez', value);this.olympics$.next(value);}),
+      tap((value) => {console.log('valuez', value);this.olympics$.next(value);this.messWithOlympics();}),
 
       // let's try something dummy
-      (value) => {setTimeout(() => console.log('ouaip25'), 1000); return value;},
+      (value) => { return value;},
 
       // catchError only listens to the error channel and ignores notifications
       catchError((error, caught) => {
@@ -34,7 +42,7 @@ export class OlympicService {
     );
   }
 
-  getOlympics() {
+  getOlympics() :Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 }
