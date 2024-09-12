@@ -13,20 +13,12 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Wait for 3s, then add an Olympic
-   * This method is used only as a test to try and understand BehaviorSubject, Observable and componants behavior
-   */
-  messWithOlympics() :void {
-    setTimeout(() => this.olympics$.value.push({id: 12, country: 'Soudan', participations:[]}), 3000);
-  }
-
   loadInitialData() :Observable<Olympic[]> {
     // this.http.get returns an Observable on the HttpResponse
     // pipe : chained observers ?, except for catchError which has a different behaviour
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       // tap is used to add side effects ; as a side effect, we populate BehaviorSubject
-      tap((value) => {console.log('valuez', value);this.olympics$.next(value);this.messWithOlympics();}),
+      tap((value) => {console.log('valuez', value);this.olympics$.next(value);}),
 
       // let's try something dummy
       (value) => { return value;},
