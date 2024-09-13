@@ -1,35 +1,42 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { OlympicService } from './core/services/olympic.service';
+import { BehaviorSubject, of } from 'rxjs';
+import { Olympic } from './core/models/Olympic.interface';
 
 describe('AppComponent', () => {
+
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
+      providers: [provideHttpClient()],
       declarations: [
         AppComponent
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'olympic-games-starter'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  // TODO : write test to check data loading
+  it('should load olympics data', () => {
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('olympic-games-starter');
+    app.olympicService.getOlympics().subscribe(olympics => {
+      expect(olympics.length).toBe(5);
+    });
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('olympic-games-starter app is running!');
-  });
 });

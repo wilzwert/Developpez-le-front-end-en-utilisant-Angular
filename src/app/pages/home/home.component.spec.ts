@@ -1,14 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-
+  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      imports: [NgxChartsModule],
+      declarations: [ HomeComponent ],
+      providers: [provideHttpClient()],
     })
     .compileComponents();
 

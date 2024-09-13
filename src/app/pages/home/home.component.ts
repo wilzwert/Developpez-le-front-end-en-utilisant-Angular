@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PieChartComponent } from '@swimlane/ngx-charts';
 import { Observable, of } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic.interface';
 import { Participation } from 'src/app/core/models/Participation.interface';
@@ -40,7 +39,8 @@ export class HomeComponent implements OnInit {
   }
 
   onChartClick(event?: any) :void {
-    console.log('navigate to '+event.extra.id);
+    console.log('navigate to '+event.extra?.id);
+    console.log(typeof event, event);
   }
   
 
