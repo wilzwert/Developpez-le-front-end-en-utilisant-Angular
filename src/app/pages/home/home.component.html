@@ -1,6 +1,30 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-@for (olympic of olympics$ | async; track olympic.id) {
-    <p>{{ olympic.country }}</p>
-}
+<section>
+    <header>
+        <h1>Medals per Country</h1>
+    </header>
+    <div class="number-card">
+        <p class="label">Number of JOs</p>
+        <p class="number">{{ numberOfJos }}</p>
+    </div>
+    <div class="number-card">
+        <p class="label">Number of countries</p>
+        <p class="number">{{ numberOfCountries }}</p>
+    </div>
+
+    <ngx-charts-pie-chart 
+        [legend]="false"
+        [results]="chartData"
+        [labels]="true"
+        [trimLabels]="false"
+        (select)="onChartClick($event)"
+    >
+    <ng-template #tooltipTemplate let-model="model">
+        <p>
+          {{ model.name }}
+        </p>
+        <p>
+            {{ model.value }}
+        </p>
+      </ng-template>
+    </ngx-charts-pie-chart>
+</section>
