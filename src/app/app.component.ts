@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs';
 import { OlympicService } from './core/services/olympic.service';
 
 @Component({
@@ -14,7 +13,6 @@ export class AppComponent implements OnInit {
    * @inheritdoc
    */
   ngOnInit(): void {
-    // take(1) : takes only the firts value emitted by the observable we get from olympicService
-    this.olympicService.loadInitialData().pipe(take(1)).subscribe();
+    this.olympicService.loadInitialData().subscribe();
   }
 }
