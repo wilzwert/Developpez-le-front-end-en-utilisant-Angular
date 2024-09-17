@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { OlympicService } from '../core/services/olympic.service';
 import { Olympic } from '../core/models/Olympic.interface';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Participation } from '../core/models/Participation.interface';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-country',
@@ -12,7 +13,9 @@ import { Participation } from '../core/models/Participation.interface';
   templateUrl: './country.component.html',
   styleUrl: './country.component.scss'
 })
-export class CountryComponent {
+export class CountryComponent implements OnInit, OnDestroy {
+
+  private destroy$!: Subject<boolean>;
 
   olympic: Olympic | null = null;
   chartData: Array<Object> = [];
@@ -51,8 +54,16 @@ export class CountryComponent {
   }
 
   ngOnInit(): void {
-    this.olympicService.getOlympics().subscribe((res) => {
-      this.update();
-    });
+    this.destroy$ = new Subject<boolean>();
+    this.olympicService.getOlympics().pipe(
+      // unsubscribe on component destruction
+      takeUntil(this.destroy$), 
+      tap((value) => {console.log('tap');this.update();})
+    ).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    // emit to Subject to unsubscribe from olympic service observable
+    this.destroy$.next(true);
   }
 }
