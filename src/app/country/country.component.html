@@ -1,1 +1,39 @@
-<p>country works!</p>
+<nav>
+    <a routerLink="/">Home</a>
+</nav>
+<section>
+    <header>
+        <h1>{{olympic?.country}}</h1>
+    </header>
+    <div class="number-cards">
+        <div class="number-card">
+            <p class="label">Number of entries</p>
+            <p class="number">{{olympic?.participations?.length}}</p>
+        </div>
+
+        <div class="number-card">
+            <p class="label">Total number medals</p>
+            <p class="number">{{totalMedals}}</p>
+        </div>
+
+        <div class="number-card">
+            <p class="label">Total number of athletes</p>
+            <p class="number">{{totalAthletes}}</p>
+        </div>
+    </div>
+
+    <div class="chart-wrapper">
+        <ngx-charts-line-chart [legend]="false" [results]="chartData" [timeline]="false" [xAxis]="true"
+            [xAxisLabel]="'Year'" [showXAxisLabel]="true" [yAxis]="true" [showYAxisLabel]="true">
+            <ng-template #tooltipTemplate let-model="model">
+                <p>
+                    {{ model.name }}
+                </p>
+                <p>
+                    {{ model.value }}
+                </p>
+            </ng-template>
+        </ngx-charts-line-chart>
+    </div>
+
+</section>

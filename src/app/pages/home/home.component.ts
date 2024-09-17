@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic.interface';
 import { Participation } from 'src/app/core/models/Participation.interface';
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   public numberOfJos: number = 0;
   public numberOfCountries: number = 0;
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, private router: Router) {}
 
   chartData:Array<Object> = [];
 
@@ -41,6 +42,13 @@ export class HomeComponent implements OnInit {
   onChartClick(event?: any) :void {
     console.log('navigate to '+event.extra?.id);
     console.log(typeof event, event);
+    try {
+      this.router.navigateByUrl('country/'+event.extra?.id);
+    }
+    // TODO : improve error handling
+    catch(e) {
+      console.log(e);
+    }
   }
   
 

@@ -54,7 +54,12 @@ p {
     margin: .5rem 0;
 }
 
-
+.wrapper {
+    width: 100%;
+    padding: 1em;
+    margin: auto;
+    max-width: 1024px;
+}
 
 /* Page title */
 h1 {
@@ -69,15 +74,36 @@ h1 {
     
 }
 
-/* Number card (used in home and detail pages) */
-.number-card {
-    display: inline-block;
-    border-radius: 1rem;
-    border: .2rem solid rgb(4, 131, 143);
-    padding: .5em 1em;
-    text-align: center;
-    margin: .5em 1em;
+/* Number cards (used in home and detail pages) */
 
+.number-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.number-card {
+    position: relative;
+    padding: .75em 1.25em;
+    text-align: center;
+    box-sizing: border-box;
+    flex: 0 0 100%;
+    max-width: 100%;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: .5rem;
+        bottom: .5rem;
+        left: 1em;
+        right: 1em;
+        border-radius: 1rem;
+        border: .2rem solid rgb(4, 131, 143);
+        z-index: 0;
+    }
 
     .label {
         color: rgb(102, 102, 102);
@@ -90,7 +116,14 @@ h1 {
     }
 }
 
-/* Charts tooltips */
+/* Charts styling */
+
+/* Wrap charts in a responsive container with a aspect-ratio of 2:1 */
+.chart-wrapper {
+    aspect-ratio: 2 / 1;
+}
+
+/* Tooltips */
 ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     font-size: 1.125rem;
     background-color: rgb(4, 131, 143);
@@ -101,7 +134,15 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
         box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     }
 }
-
+/* Labels */
 text.pie-label {
     font-size: 1.125rem;
+}
+
+/* Responsiveness */
+@media screen and (min-width: 1024px) {
+    .number-card {
+        flex: 0 0 33.33333333%;
+        max-width: 33.33333333%;
+    }
 }
