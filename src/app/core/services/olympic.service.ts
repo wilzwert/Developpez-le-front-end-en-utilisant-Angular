@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, take, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic.interface';
 
 @Injectable({
@@ -36,11 +36,9 @@ export class OlympicService {
   }
 
   getOlympic(id: number) : Olympic {
-    console.log('getOlympic'+id);
     // TODO : handle errors, as getValue()[id] expects initial data to be loaded, and id to exist in Olympic list
     const olympic = this.olympics$.getValue().find(v => v.id == id);
     if(!olympic) {
-      console.log('none');
       throw new Error('Cannot find Olympic');
     }
     return olympic;

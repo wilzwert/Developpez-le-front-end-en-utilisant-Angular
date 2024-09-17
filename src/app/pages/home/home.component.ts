@@ -40,8 +40,6 @@ export class HomeComponent implements OnInit {
   }
 
   onChartClick(event?: any) :void {
-    console.log('navigate to '+event.extra?.id);
-    console.log(typeof event, event);
     try {
       this.router.navigateByUrl('country/'+event.extra?.id);
     }
