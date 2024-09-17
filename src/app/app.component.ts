@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
    * @inheritdoc
    */
   ngOnInit(): void {
-    // take(1) : takes only the firts value emitted by the observable we get from olympicService
+    // take(1) : takes only the first value emitted by the observable we get from olympicService, then the observable completes
     this.olympicService.loadInitialData().pipe(take(1)).subscribe();
   }
 }
