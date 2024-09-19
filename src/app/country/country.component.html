@@ -1,6 +1,8 @@
 <nav>
     <a routerLink="/">Home</a>
 </nav>
+
+@if(olympic$ | async; as olympic) {
 <section>
     <header>
         <h1>{{olympic?.country}}</h1>
@@ -37,3 +39,4 @@
     </div>
 
 </section>
+}

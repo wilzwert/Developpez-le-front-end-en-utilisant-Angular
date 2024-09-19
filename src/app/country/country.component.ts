@@ -4,7 +4,7 @@ import { OlympicService } from '../core/services/olympic.service';
 import { Olympic } from '../core/models/Olympic.interface';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Participation } from '../core/models/Participation.interface';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { map, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-country',
@@ -16,8 +16,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 export class CountryComponent implements OnInit, OnDestroy {
 
   private destroy$!: Subject<boolean>;
-
-  olympic: Olympic | null = null;
+  olympic$!: Observable<Olympic|undefined>;
   chartData: Array<Object> = [];
   totalMedals: number = 0;
   totalAthletes: number = 0;
@@ -25,41 +24,37 @@ export class CountryComponent implements OnInit, OnDestroy {
   constructor(private olympicService: OlympicService,
     private route: ActivatedRoute
   ) { }
-
-  getOlympic(): void {
-    const olympicId = this.route.snapshot.params['id'];
-    this.olympic = this.olympicService.getOlympic(olympicId);
-  }
-
-  buildData(): void {
+  
+  buildData(olympic: Olympic): void {
     this.totalMedals = 0;
     this.totalAthletes = 0;
     this.chartData = [];
 
-    if (this.olympic) {
+    if(olympic) {
       // compute data for number cards,  build data for line chart, 
       const series: Array<Object> = [];
-      this.olympic.participations.forEach((participation: Participation) => {
+      olympic.participations.forEach((participation: Participation) => {
         this.totalMedals += participation.medalsCount;
         this.totalAthletes += participation.athleteCount;
         series.push({ name: "" + participation.year, value: participation.medalsCount });
       });
-      this.chartData.push({ name: this.olympic.country, series: series });
+      this.chartData.push({ name: olympic.country, series: series });
     }
   }
 
-  update(): void {
-    this.getOlympic();
-    this.buildData();
+  update(o: Olympic): void {
+    this.buildData(o);
   }
 
   ngOnInit(): void {
     this.destroy$ = new Subject<boolean>();
-    this.olympicService.getOlympics().pipe(
+    const olympicId: number = parseInt(this.route.snapshot.params['id']);
+    this.olympic$ = this.olympicService.getOlympicByiD(olympicId).pipe(
       // unsubscribe on component destruction
       takeUntil(this.destroy$), 
-      tap((value) => {console.log('tap');this.update();})
-    ).subscribe();
+      tap((value) => {console.log(value);if(value) {this.update(value);}})
+    );
+    this.olympic$.subscribe();
   }
 
   ngOnDestroy(): void {

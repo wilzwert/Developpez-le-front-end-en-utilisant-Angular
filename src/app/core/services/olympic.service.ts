@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, filter, map, take, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic.interface';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Olympic } from '../models/Olympic.interface';
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[]>([]);
-
+  
   constructor(private http: HttpClient) {}
 
   loadInitialData() :Observable<Olympic[]> {
@@ -35,12 +35,9 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  getOlympic(id: number) : Olympic {
-    // TODO : handle errors, as getValue()[id] expects initial data to be loaded, and id to exist in Olympic list
-    const olympic = this.olympics$.getValue().find(v => v.id == id);
-    if(!olympic) {
-      throw new Error('Cannot find Olympic');
-    }
-    return olympic;
+  getOlympicByiD(id: number) : Observable<Olympic | undefined> {
+    return this.getOlympics().pipe(
+      map((olympics: Olympic[]) => olympics.find(olympic => olympic.id === id))
+    );
   }
 }
