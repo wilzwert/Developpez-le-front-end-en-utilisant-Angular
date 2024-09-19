@@ -9,7 +9,7 @@ import { LoadingService } from './loading.service';
   providedIn: 'root',
 })
 export class OlympicService {
-  private olympicUrl = './assets/mock/olympic.json';
+  private olympicUrl = './assets/mock/olypic.json';
   private olympics$ = new BehaviorSubject<Olympic[]>([]);
   
   constructor(private http: HttpClient, private loadingService: LoadingService) {}
@@ -27,10 +27,11 @@ export class OlympicService {
       // catchError only listens to the error channel and ignores notifications
       catchError((error, caught) => {
         // TODO: improve error handling
-        console.error(error);
+        // console.error(error);
         // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next([]);
-        return caught;
+        throw error;
+        // return caught;
       }),
       // testing loading indicator
       finalize(() => this.loadingService.loadingOff())
