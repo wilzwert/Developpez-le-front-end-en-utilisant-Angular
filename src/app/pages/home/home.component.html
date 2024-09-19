@@ -18,11 +18,11 @@
             <ngx-charts-pie-chart [legend]="false" [results]="chartData" [labels]="true" [trimLabels]="false"
                 (select)="onChartClick($event)">
                 <ng-template #tooltipTemplate let-model="model">
-                    <p>
+                    <p class="tooltip-label">
                         {{ model.name }}
                     </p>
-                    <p>
-                        {{ model.value }}
+                    <p class="tooltip-medals">
+                        <span>{{ model.value }}</span>
                     </p>
                 </ng-template>
             </ngx-charts-pie-chart>

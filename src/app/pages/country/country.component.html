@@ -28,11 +28,11 @@
         <ngx-charts-line-chart [legend]="false" [results]="chartData" [timeline]="false" [xAxis]="true"
             [xAxisLabel]="'Year'" [showXAxisLabel]="true" [yAxis]="true" [showYAxisLabel]="true">
             <ng-template #tooltipTemplate let-model="model">
-                <p>
+                <p class="tooltip-label">
                     {{ model.name }}
                 </p>
-                <p>
-                    {{ model.value }}
+                <p class="tooltip-medals">
+                    <span>{{ model.value }}</span>
                 </p>
             </ng-template>
         </ngx-charts-line-chart>
