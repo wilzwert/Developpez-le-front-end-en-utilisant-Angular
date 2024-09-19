@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic.interface';
 import { Participation } from 'src/app/core/models/Participation.interface';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -52,8 +52,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe((res) => {
-      this.update(res);
-    });
+    this.olympics$.pipe(
+      tap(res => this.update(res))
+    ).subscribe();
   }
 }

@@ -134,6 +134,28 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
         border-top-color: rgb(4, 131, 143);
         box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     }
+
+    .tooltip-medals {
+        display: inline-block;
+        vertical-align: middle;
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .tooltip-medals:before {
+        content: "";
+        display: inline-block;
+        margin-right: .5em;
+        width: 1em;
+        height: 1em;
+        vertical-align: middle;
+        background: url(assets/medal.svg) center center transparent no-repeat;
+        background-size: cover;
+        
+    }
 }
 /* Labels */
 text.pie-label {
