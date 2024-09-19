@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { OlympicService } from '../core/services/olympic.service';
-import { Olympic } from '../core/models/Olympic.interface';
+import { OlympicService } from '../../core/services/olympic.service';
+import { Olympic } from '../../core/models/Olympic.interface';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { Participation } from '../core/models/Participation.interface';
+import { Participation } from '../../core/models/Participation.interface';
 import { map, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
@@ -52,7 +52,7 @@ export class CountryComponent implements OnInit, OnDestroy {
     this.olympic$ = this.olympicService.getOlympicByiD(olympicId).pipe(
       // unsubscribe on component destruction
       takeUntil(this.destroy$), 
-      tap((value) => {console.log(value);if(value) {this.update(value);}})
+      tap((value) => {if(value) {this.update(value);}})
     );
     this.olympic$.subscribe();
   }
