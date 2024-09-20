@@ -40,13 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   onChartClick(event?: any) :void {
-    try {
-      this.router.navigateByUrl('country/'+event.extra?.id);
-    }
-    // TODO : improve error handling
-    catch(e) {
-      console.log(e);
-    }
+    this.router.navigateByUrl('country/'+event.extra?.id);
   }
   
 

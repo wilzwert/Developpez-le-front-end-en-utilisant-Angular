@@ -23,6 +23,7 @@ export class LoadingIndicatorComponent implements OnInit {
     this.router.events
       .pipe(
         tap((event) => {
+          // console.log(event);
           if (event instanceof NavigationStart) {
             this.loadingService.loadingOn();
           } else if (event instanceof NavigationEnd) {
