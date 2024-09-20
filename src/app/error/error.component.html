@@ -1,13 +1,15 @@
 @if(error$ | async; as error) {
-    <div class="page-overlay">
-        <div>
-            <div class="error-message">
-            Une erreur est survenue : 
-            {{ error.message }}
-            </div>
-            <nav>
-                <a routerLink="/">Home</a>
-            </nav>
+<div class="page-overlay">
+    <div>
+        <div class="error-message">
+            Une erreur est survenue :
+            <p>
+                {{ error.message }}
+            </p>
         </div>
+        <nav>
+            <a routerLink="/">Home</a>
+        </nav>
+    </div>
 </div>
 }

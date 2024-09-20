@@ -1,6 +1,9 @@
 .error-message {
     color: red;
-    font-weight: 700;
     max-width: 600px;
     margin-bottom: 1em;
+
+    p {
+        font-weight: 700;
+    }
 }

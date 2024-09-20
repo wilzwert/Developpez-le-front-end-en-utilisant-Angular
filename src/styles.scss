@@ -54,6 +54,17 @@ p {
     margin: .5rem 0;
 }
 
+a, a:visited {
+    font-weight: 700;
+    text-decoration: underline;
+    color: #000;
+}
+
+a:active {
+    font-weight: 400;
+    font-style: italic;
+}
+
 .wrapper {
     width: 100%;
     padding: 1em;
