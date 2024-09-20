@@ -9,7 +9,7 @@ import { LoadingService } from './loading.service';
   providedIn: 'root',
 })
 export class OlympicService {
-  private olympicUrl = './assets/mock/olypic.json';
+  private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[]>([]);
   
   constructor(private http: HttpClient, private loadingService: LoadingService) {}

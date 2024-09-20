@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { ErrorService } from '../core/services/error.service';
 import { Observable } from 'rxjs';
@@ -6,7 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-error',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterModule],
   templateUrl: './error.component.html',
   styleUrl: './error.component.scss'
 })
