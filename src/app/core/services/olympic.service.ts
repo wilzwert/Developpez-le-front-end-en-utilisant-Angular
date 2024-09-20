@@ -26,12 +26,9 @@ export class OlympicService {
 
       // catchError only listens to the error channel and ignores notifications
       catchError((error, caught) => {
-        // TODO: improve error handling
-        // console.error(error);
         // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next([]);
         throw error;
-        // return caught;
       }),
       // testing loading indicator
       finalize(() => this.loadingService.loadingOff())

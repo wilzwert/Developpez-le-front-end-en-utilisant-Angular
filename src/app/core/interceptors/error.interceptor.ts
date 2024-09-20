@@ -15,10 +15,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           // Handle the error
-          // TODO : make message "user friendly"
-          return throwError(() => new Error(error.message));
+          return throwError(() => new Error('Erreur de chargement des données'));
         })
       );
-    return next.handle(request);
   }
 }
