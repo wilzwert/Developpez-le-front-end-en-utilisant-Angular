@@ -19,10 +19,7 @@ export class ErrorComponent implements OnInit {
     this.error$ = this.errorService.error$;
   }
 
-  ngOnInit(): void {
-    /*this.error$.pipe(
-      
-    ).subscribe();*/
+  ngOnInit(): void {    
   }
 
 }
