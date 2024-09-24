@@ -13,6 +13,5 @@ export class ErrorService {
 
   handleError(error: Error) :void {
     this.errorSubject.next(error);
-    console.log(error.message);
   }
 }
