@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { ErrorService } from '../core/services/error.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-error',
@@ -13,13 +13,22 @@ import { Observable } from 'rxjs';
 })
 export class ErrorComponent implements OnInit {
 
-  error$!: Observable<Error>;
+  error$!: Observable<Error|null>;
 
-  constructor(private errorService: ErrorService){
+  constructor(private router: Router, private errorService: ErrorService){
     this.error$ = this.errorService.error$;
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
+    this.router.events
+      .pipe(
+        tap((event) => {
+          if (event instanceof NavigationStart) {
+            this.errorService.reset();
+          }
+        })
+      )
+      .subscribe();
   }
 
 }
