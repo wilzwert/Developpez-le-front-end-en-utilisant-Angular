@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, tap } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic.interface';
+import { ChartEvent } from 'src/app/core/models/ChartEvent.interface';
 import { Participation } from 'src/app/core/models/Participation.interface';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
@@ -39,8 +40,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onChartClick(event?: any) :void {
-    this.router.navigateByUrl('country/'+event.extra?.id);
+  onChartClick(event?: ChartEvent) :void {
+    this.router.navigateByUrl('country/'+event?.extra?.id);
   }
   
 
