@@ -30,8 +30,7 @@ export class LoadingIndicatorComponent implements OnInit {
           } else if (event instanceof NavigationCancel) {
             this.loadingService.loadingOff();
           }
-        }),
-        delay(10),
+        })
       )
       .subscribe();
   }

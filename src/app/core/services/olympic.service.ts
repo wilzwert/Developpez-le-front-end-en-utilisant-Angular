@@ -15,13 +15,10 @@ export class OlympicService {
   constructor(private http: HttpClient, private loadingService: LoadingService) {}
 
   loadInitialData() :Observable<Olympic[]> {
-    // this.http.get returns an Observable on the HttpResponse
-    // pipe : chained observers ?, except for catchError which has a different behaviour
-    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-      // testing loading indicator
+        return this.http.get<Olympic[]>(this.olympicUrl).pipe(
+      // notify loading indicator
       tap((value) => {this.loadingService.loadingOn();}),
-      delay(3000),
-      // tap is used to add side effects ; as a side effect, we populate BehaviorSubject (ie value is "emitted")
+      // as a side effect, we populate BehaviorSubject (ie value is "emitted")
       tap((value) => {this.olympics$.next(value);}),
 
       // catchError only listens to the error channel and ignores notifications
@@ -30,7 +27,7 @@ export class OlympicService {
         this.olympics$.next([]);
         throw error;
       }),
-      // testing loading indicator
+      // notify loading indicator
       finalize(() => this.loadingService.loadingOff())
     );
   }
@@ -41,9 +38,8 @@ export class OlympicService {
 
   getOlympicByiD(id: number) : Observable<Olympic | undefined> {
     return this.getOlympics().pipe(
+      filter((value: Olympic[]) => value.length > 0),
       tap(value => {this.loadingService.loadingOn();}),
-      // simulate long request
-      delay(2000),
       map((olympics: Olympic[]) => olympics.find(olympic => olympic.id === id)),
       tap(value => {this.loadingService.loadingOff();})
     );
