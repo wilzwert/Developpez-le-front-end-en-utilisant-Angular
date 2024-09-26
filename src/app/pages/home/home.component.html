@@ -16,7 +16,8 @@
         </div>
         <div class="chart-wrapper">
             <ngx-charts-pie-chart [legend]="false" [results]="chartData" [labels]="true" [trimLabels]="false"
-                (select)="onChartClick($event)">
+                (select)="onChartClick($event)"
+                >
                 <ng-template #tooltipTemplate let-model="model">
                     <p class="tooltip-label">
                         {{ model.name }}
