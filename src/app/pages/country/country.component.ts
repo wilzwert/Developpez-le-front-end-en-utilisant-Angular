@@ -52,7 +52,7 @@ export class CountryComponent implements OnInit, OnDestroy {
     this.olympic$ = this.olympicService.getOlympicByiD(olympicId).pipe(
       // unsubscribe on component destruction
       takeUntil(this.destroy$), 
-      tap((value) => {if(value) {this.update(value);}})
+      tap((value) => {if(value) {this.update(value);} else {throw new Error('Cannot find country.');}})
     );
     this.olympic$.subscribe();
   }

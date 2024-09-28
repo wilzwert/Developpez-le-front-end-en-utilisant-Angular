@@ -143,7 +143,9 @@ h1 {
 
 /* Wrap charts in a responsive container with a aspect-ratio of 2:1 */
 .chart-wrapper {
-    aspect-ratio: 2 / 1;
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
     margin-top: 2rem;
 }
 
@@ -180,15 +182,27 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
         
     }
 }
-/* Labels */
-text.pie-label {
-    font-size: 1.125rem;
-}
+
 
 /* Responsiveness */
+@media screen and (min-width: 768px) {
+    .chart-wrapper {
+        aspect-ratio: 1.5 / 1;
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .number-card {
         flex: 0 0 33.33333333%;
         max-width: 33.33333333%;
+    }
+
+    /* Pie chart labels */
+    text.pie-label {
+        font-size: 1.125rem;
+    }
+
+    .chart-wrapper {
+        aspect-ratio: 2 / 1;
     }
 }

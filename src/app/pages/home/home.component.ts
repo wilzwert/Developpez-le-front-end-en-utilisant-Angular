@@ -16,18 +16,20 @@ export class HomeComponent implements OnInit {
   public numberOfJos: number = 0;
   public numberOfCountries: number = 0;
 
-  constructor(private olympicService: OlympicService, private router: Router) {}
+  constructor(private olympicService: OlympicService, private router: Router) { }
 
-  chartData:Array<Object> = [];
+  chartData: Array<Object> = [];
+  view!: [number, number];
 
-  update(olympics: Olympic[]) :void {
-    if(olympics.length) {
+  update(olympics: Olympic[]): void {
+    if (olympics.length) {
+      this.setView();
       this.chartData = olympics.map(
         (olympic: Olympic) => {
           return {
-            name: olympic.country, 
-            value: olympic.participations.reduce((total, participation: Participation) => {return total + participation.medalsCount}, 0), 
-            extra: {id: olympic.id}
+            name: olympic.country,
+            value: olympic.participations.reduce((total, participation: Participation) => { return total + participation.medalsCount }, 0),
+            extra: { id: olympic.id }
           }
         }
       );
@@ -40,10 +42,20 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onChartClick(event?: ChartEvent) :void {
-    this.router.navigateByUrl('country/'+event?.extra?.id);
+  onChartClick(event?: ChartEvent): void {
+    this.router.navigateByUrl('country/' + event?.extra?.id);
   }
-  
+
+  onResize(event: Event): void {
+    debugger;
+    console.log(typeof event, event);
+    // this.view = [event.target?.innerWidth / 1.35, 400];
+  }
+
+  setView(): void {
+    this.view = [1200, 712];
+  }
+
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
