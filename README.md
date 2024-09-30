@@ -1,14 +1,18 @@
 # OlympicGamesStarter
 
 My first Angular project :
-- learn basics about Components, templates
+- learn basics about Components and templates
 - load data from a json with HttpClient
 - display data in charts (piechart or line chart)
-- learn about Interceptors, Services, HttpClient, configuration
+- learn about Interceptors, Services, HttpClient, error handling, routing, configuration
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
 
-Don't forget to install your node_modules before starting (`npm install`).
+# Installation
+
+Requirements : Node.js version 18.19 or above
+
+Clone this repository, then install your node_modules before starting (`npm install`).
 
 ## Development server
 
