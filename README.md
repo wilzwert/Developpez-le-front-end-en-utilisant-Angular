@@ -1,5 +1,11 @@
 # OlympicGamesStarter
 
+My first Angular project :
+- learn basics about Components, templates
+- load data from a json with HttpClient
+- display data in charts (piechart or line chart)
+- learn about Interceptors, Services, HttpClient, configuration
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
 
 Don't forget to install your node_modules before starting (`npm install`).
@@ -12,18 +18,35 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Where to start
+## Project structure
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+Key components and their usage are listed below : 
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+app
+    core
+        interceptors
+            ErrorInterceptor : used to handle HTTP Client errors
+            LoadingInterceptore : used to activate or deactivate loading indicator on HTTP requests
+        models
+            ChartEvent : interface used to force the type of ngx-charts click event on pie chart and avoid type 'any'
+            Olympic and Participation : interfaces used to handle and type olympic data loaded from the json data
+        services
+            ErrorService : global service (injectable) used to handle errors
+            LoadingService : global service (injectable) used to handle loading indicator
+        GlobalErrorHandler : global error handler replacing default error handling for the app
+    error
+        ErrorComponent : used to show / hide an error using an Observable. This component is included in the AppComponent template so that it's available anywhere in the app.
+    loading-indicator
+        LoadingIndicatorComponent : used to show / hide the loading indicator. This component is included in the AppComponent template so that it's available anywhere in the app
+    pages :
+        country
+            CountryComponent : display a country details with a line chart and number cards
+        home
+            HomeComponent : home page, with a pie chart and number cards to display data
+        not-found
+            NotFoundComponent : display "404" page when no route matches the URI
+    AppComponent : global app component
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
-
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
-
-You're now ready to implement the requested features.
-
-Good luck!
+assets
+    mock
+        olympic.json : app data, loaded with an HttpClient to mock a data API
