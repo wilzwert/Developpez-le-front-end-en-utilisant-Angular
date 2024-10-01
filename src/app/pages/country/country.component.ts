@@ -49,7 +49,7 @@ export class CountryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.destroy$ = new Subject<boolean>();
     const olympicId: number = parseInt(this.route.snapshot.params['id']);
-    this.olympic$ = this.olympicService.getOlympicByiD(olympicId).pipe(
+    this.olympic$ = this.olympicService.getOlympicById(olympicId).pipe(
       // unsubscribe on component destruction
       takeUntil(this.destroy$), 
       tap((value) => {if(value) {this.update(value);} else {throw new Error('Cannot find country.');}})

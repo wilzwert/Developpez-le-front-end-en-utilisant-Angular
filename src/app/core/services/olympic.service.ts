@@ -32,7 +32,7 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  getOlympicByiD(id: number) : Observable<Olympic | undefined> {
+  getOlympicById(id: number) : Observable<Olympic | undefined> {
     return this.getOlympics().pipe(
       filter((value: Olympic[]) => value.length > 0),
       tap(value => {this.loadingService.loadingOn();}),
