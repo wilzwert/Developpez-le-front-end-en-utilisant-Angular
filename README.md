@@ -1,7 +1,7 @@
 # OlympicGamesStarter
 
 My first Angular project :
-- learn basics about Components and templates
+- learn basics about components and templates
 - load data from a json with HttpClient
 - display data in charts (piechart or line chart)
 - learn about Interceptors, Services, HttpClient, error handling, routing, configuration
@@ -30,7 +30,7 @@ Key components and their usage are listed below :
     - core
         - interceptors
             - ErrorInterceptor : used to handle HTTP Client errors
-            - LoadingInterceptore : used to activate or deactivate loading indicator on HTTP requests
+            - LoadingInterceptor : used to activate or deactivate loading indicator on HTTP requests
         - models
             - ChartEvent : interface used to force the type of ngx-charts click event on pie chart and avoid type 'any'
             - Olympic and Participation : interfaces used to handle and type olympic data loaded from the json data
