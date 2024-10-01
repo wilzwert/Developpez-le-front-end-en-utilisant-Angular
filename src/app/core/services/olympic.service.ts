@@ -16,8 +16,6 @@ export class OlympicService {
 
   loadInitialData() :Observable<Olympic[]> {
         return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-      // notify loading indicator
-      tap((value) => {this.loadingService.loadingOn();}),
       // as a side effect, we populate BehaviorSubject (ie value is "emitted")
       tap((value) => {this.olympics$.next(value);}),
 
@@ -26,9 +24,7 @@ export class OlympicService {
         // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next([]);
         throw error;
-      }),
-      // notify loading indicator
-      finalize(() => this.loadingService.loadingOff())
+      })
     );
   }
 
