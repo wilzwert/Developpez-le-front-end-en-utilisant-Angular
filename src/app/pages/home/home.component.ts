@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic.interface';
 import { ChartEvent } from 'src/app/core/models/ChartEvent.interface';
 import { Participation } from 'src/app/core/models/Participation.interface';
@@ -11,7 +11,8 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  private destroy$!: Subject<boolean>;
   public olympics$: Observable<Olympic[]> = of([]);
   public numberOfJos: number = 0;
   public numberOfCountries: number = 0;
@@ -23,7 +24,6 @@ export class HomeComponent implements OnInit {
 
   update(olympics: Olympic[]): void {
     if (olympics.length) {
-      this.setView();
       this.chartData = olympics.map(
         (olympic: Olympic) => {
           return {
@@ -46,21 +46,18 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('country/' + event?.extra?.id);
   }
 
-  onResize(event: Event): void {
-    debugger;
-    console.log(typeof event, event);
-    // this.view = [event.target?.innerWidth / 1.35, 400];
-  }
-
-  setView(): void {
-    this.view = [1200, 712];
-  }
-
-
   ngOnInit(): void {
+    this.destroy$ = new Subject<boolean>();
     this.olympics$ = this.olympicService.getOlympics();
     this.olympics$.pipe(
+      // unsubscribe on component destruction
+      takeUntil(this.destroy$), 
       tap(res => this.update(res))
     ).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    // emit to Subject to unsubscribe from olympic service observable
+    this.destroy$.next(true);
   }
 }
