@@ -3,7 +3,7 @@
         <h1>Medals per Country</h1>
     </header>
 
-    @if(numberOfCountries) {
+    @if(olympics$ | async; as olympics) {
         <div class="number-cards">
             <div class="number-card">
                 <p class="label">Number of JOs</p>
