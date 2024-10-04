@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { finalize, Observable } from 'rxjs';
+import { delay, finalize, Observable } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
 
 @Injectable()
@@ -15,6 +15,9 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loadingService.loadingOn();
-    return next.handle(request).pipe(finalize(() => this.loadingService.loadingOff()));
+    return next.handle(request).pipe(
+      // delay(2000), 
+      finalize(() => this.loadingService.loadingOff())
+    );
   }
 }

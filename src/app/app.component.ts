@@ -13,7 +13,8 @@ export class AppComponent implements OnInit {
    * @inheritdoc
    */
   ngOnInit(): void {
-    this.olympicService.loadInitialData().subscribe();
+    document.body.removeChild(document.body.getElementsByClassName('page-overlay')[0]);
     document.body.classList.remove('app-loading');
+    this.olympicService.loadInitialData().subscribe();
   }
 }

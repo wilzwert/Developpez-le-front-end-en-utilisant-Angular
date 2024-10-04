@@ -36,6 +36,7 @@ export class OlympicService {
     return this.getOlympics().pipe(
       filter((value: Olympic[]) => value.length > 0),
       tap(value => {this.loadingService.loadingOn();}),
+      // delay(1000),
       map((olympics: Olympic[]) => olympics.find(olympic => olympic.id === id)),
       tap(value => {this.loadingService.loadingOff();})
     );
